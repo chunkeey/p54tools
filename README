@@ -1,0 +1,75 @@
+=== Prism54 Tools ===
+
+INDEX:
+	0. Build
+	1. Package Content
+	2. Contact
+
+
+0. Build
+
+	Build requirements - for Linux:
+		|tool|		|min. version|
+		cmake		2.8.2
+		(gnu) make	3.81
+		gcc		4.4.5
+		binutils	2.20.1
+		...
+
+	Simply run:
+
+	cmake . && make
+
+	in the root directory of the project. 
+	After the build process completed, the programs can
+	be found under src/.
+
+1. Package Content
+
+	
+	README
+		This file.
+	
+	COPYRIGHT
+		Copyright information
+	
+	GPL
+		Copy of the GPL v2
+	
+	src/
+	 	checksum
+			Verifyies, generates and applies an checksum to an
+			eeprom image.
+			The -f switch can be used to correct bad checksums.
+		
+		view
+			Generates an human-readable dump of an eeprom image.
+		
+		
+		edit
+			Universal utility to modify/view any Prism54 EEPROM.
+
+	
+	lib/
+		libp54eeprom
+			Common library routines for most generic EEPROM
+			data and structure routines. 
+
+
+	eeprom_images/
+		header/
+			directory for sample eeproms from a number of
+			different Prism54 devices.	
+
+		tobin.sh
+			shell script which converts all sample eeproms under
+			/header/ into binaries.
+
+
+
+- Contact -
+
+	Mail: <chunkeey@googlemail.com>
+
+	- Driver homepage -
+	http://wireless.kernel.org/en/users/Driver/p54
