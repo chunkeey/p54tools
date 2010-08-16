@@ -502,6 +502,8 @@ int p54e_store(struct p54e *ee)
 		return -ENOENT;
 
 	fh = fopen(ee->eeprom.name, "w");
+	if (fh == NULL)
+		return -errno;
 
 	head = (void *) ee->eeprom.data;
 
