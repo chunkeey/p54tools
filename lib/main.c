@@ -462,7 +462,7 @@ struct p54e *p54e_load_file(const char *name)
 
 	err = fread(ee->eeprom.data, ee->eeprom.len, 1, fh);
 	if (err != 1) {
-		err = ferror(fh);
+		err = -ferror(fh);
 		goto err_out;
 	}
 
@@ -523,14 +523,14 @@ int p54e_store(struct p54e *ee)
 
 		err = fwrite(iter->data, elen, 1, fh);
 		if (err != 1) {
-			err = ferror(fh);
+			err = -ferror(fh);
 			goto close_out;
 		}
 	}
 
 	err = fwrite(&last_desc, sizeof(last_desc), 1, fh);
 	if (err != 1) {
-		err = ferror(fh);
+		err = -ferror(fh);
 		goto close_out;
 	}
 
@@ -539,7 +539,7 @@ int p54e_store(struct p54e *ee)
 
 	err = fwrite(&crc16, sizeof(crc16), 1, fh);
 	if (err != 1) {
-		err = ferror(fh);
+		err = -ferror(fh);
 		goto close_out;
 	}
 
