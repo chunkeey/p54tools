@@ -24,7 +24,15 @@ struct p54_cal_database {
 	uint8_t data[0];
 };
 
-struct p54_rssi_linear_approximation {
+struct p54_rssi_db_entry_v1 {
+	__le16 mul;
+	__le16 add;
+	__le16 longbow_unkn;
+	__le16 longbow_unkn2;
+};
+
+struct p54_rssi_db_entry_v2 {
+	__le16 freq;
 	__le16 mul;
 	__le16 add;
 	__le16 longbow_unkn;

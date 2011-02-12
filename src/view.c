@@ -270,9 +270,9 @@ static void iq_desc(const struct pda_entry *head, struct p54e *ee __unused)
 
 static const char *band_names[2] = { "2.4 GHz", "5 GHz" };
 
-static void rssi_custom_desc(const struct pda_entry *head, struct p54e *ee __unused)
+static void rssi_custom_desc_v1(const struct pda_entry *head, struct p54e *ee __unused)
 {
-	const struct p54_rssi_linear_approximation *rssi_db;
+	const struct p54_rssi_db_entry_v1 *rssi_db;
 	unsigned int i;
 
 	rssi_db = (const void *)head->data;
@@ -287,6 +287,16 @@ static void rssi_custom_desc(const struct pda_entry *head, struct p54e *ee __unu
 			(int16_t)rssi_db[i].longbow_unkn2);
 		fprintf(stdout, "\n");
 	}
+}
+
+static void rssi_custom_desc_v2(const struct pda_entry *head, struct p54e *ee __unused)
+{
+	const struct p54_rssi_db_entry_v2 *rssi_db;
+
+	rssi_db = (const void *)head->data;
+
+	fprintf(stdout, "\t--- RSSI <-> dBm parameters ---\n");
+	database_dump((const struct pda_custom_wrapper *)head->data);
 }
 
 static void rssi_desc(const struct pda_entry *head, struct p54e *ee __unused)
@@ -468,7 +478,8 @@ static const struct {
 	ADD_HANDLER(PDR_PRISM_ZIF_TX_IQ_CALIBRATION, iq_desc),
 	ADD_HANDLER(PDR_PRISM_PA_CAL_CURVE_DATA, curve_desc),
 	ADD_HANDLER(PDR_PRISM_PA_CAL_OUTPUT_POWER_LIMITS, power_limits_desc),
-	ADD_HANDLER(PDR_RSSI_LINEAR_APPROXIMATION_CUSTOM, rssi_custom_desc),
+	ADD_HANDLER(PDR_RSSI_LINEAR_APPROXIMATION_CUSTOM, rssi_custom_desc_v1),
+	ADD_HANDLER(PDR_RSSI_LINEAR_APPROXIMATION_CUSTOMV2, rssi_custom_desc_v2),
 	ADD_HANDLER(PDR_RSSI_LINEAR_APPROXIMATION, rssi_desc),
 	ADD_HANDLER(PDR_RSSI_LINEAR_APPROXIMATION_EXTENDED, rssi_desc),
 	ADD_HANDLER(PDR_RSSI_LINEAR_APPROXIMATION_DUAL_BAND, rssi_desc),
